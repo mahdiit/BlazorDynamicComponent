@@ -1,0 +1,7 @@
+﻿@inherits BaseComponent
+
+
+<h3>Company Info</h3>
+<p>Id: <InputNumber @bind-Value="DataModel.Id"></InputNumber> </p>
+<p>Name: <InputText @bind-Value="DataModel.Name"></InputText></p>
+<button @onclick="SendData">Send data to base</button>

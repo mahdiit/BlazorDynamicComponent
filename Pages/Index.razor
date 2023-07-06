@@ -1,0 +1,35 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@foreach (var item in BaseComponents)
+{
+    RenderFragment renderFragment = (builder) =>
+    {
+        builder.OpenComponent(0, item.GetType());
+        if (item.GetType() == typeof(Company.Index))
+        {
+            builder.AddAttribute(1, "Model", new Company.CompanyModel() { Id = 1, Name = "Raisa Sys" });
+            var callback = EventCallback.Factory.Create<object>(this, OnCallback);
+            builder.AddAttribute(1, "GetModel", callback);
+        }
+
+        if (item.GetType() == typeof(Person.Index))
+            builder.AddAttribute(1, "Model", new Person.PersonModel() { Id = 1, FirstName = "Mahdi", LastName = "Yousefi" });
+
+        builder.CloseComponent();
+    };
+
+    <div>@renderFragment</div>
+}
+<hr />
+@if(CompanyModel != null)
+{
+    <p>@CompanyModel.Name</p>
+}
